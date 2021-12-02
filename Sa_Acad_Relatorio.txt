@@ -1,0 +1,81 @@
+Abrir no Notepad++ 
+
+			d^.^b << informações >> d(^.~)b
+
+Status
+
+OKay		= verificado / verificando
+false		= fazer / 
+andamento	= Fazendo
+__________________________________________________
+
+criando
+
+quem irar mexer e/ou está mexendo
+
+__________________________________________________
+				Dao					Status		Criando		Terminados     Testados
+
+AparelhosAcademiaDao 				-- Okay		Thiago		Okay			Okay
+AparelhosAcademiaDaoImpl			-- Okay		Thiago		Okay			Okay
+BaseDao								-- Okay		Thiago		Okay			Okay
+CadastroClienteDao					-- Okay		Thiago		Okay
+CadastroClienteDaoImpl				-- Okay		Thiago		Okay			
+CargosDao							-- Okay		Gui			Okay			Okay
+CargosDaoImpl						-- okay 	Gui			okay			okay
+EspacoTempoDao						-- Okay		Thiago		Okay
+EspacoTempoDaoImpl					-- false
+FuncionariosDao						-- Okay		Gui			Okay
+FuncionariosDaoImpl					-- andamentoGui
+PlanoDao							-- Okay		Thiago		Okay			Okay
+PlanoDaoImpl						-- Okay		Thiago		Okay			Okay
+Sa_Academia_Conexao					-- Okay		Thiago		Okay			Okay
+TreinoAparelhosDao					-- Okay		Thiago		Okay
+TreinoAparelhosDaoImpl				-- false
+TreinoDao							-- Okay		Thiago		Okay			Okey
+TreinoDaoImpl						-- Okay		Thiago		Okay			Okay		
+__________________________________________________
+				Entidade			Status		Criando		Terminados		Testados
+
+AparelhosAcademia					-- Okay		Thiago		Okay			Okay
+CadastroCliente						-- Okay		Thiago		Okay
+Cargos								-- Okay		Gui			Okay			Okay
+EspacoTempo							-- Okay		Thiago		Okay
+Funcionarios						-- Okay		Thiago		Okay
+Plano								-- Okay		Thiago		Okay			Okay
+Treino								-- Okay		Thiago		Okay			Okay
+TreinoAparelhos						-- Okay		Thiago		Okay
+__________________________________________________
+				Test				Status		Criando		Terminados		Testados
+				
+AparelhosAcademiaDaoImplTest		-- Okay		Okay 		Okay			Okay
+CadastroClienteDaoImplTest			-- Okay		Okay 		Parado
+CargosDaoImplTest					-- Okay		Gui			Okay			Okay
+EspacoTempoDaoImplTest				-- false
+FuncionariosDaoImplTest				-- false
+PlanoDaoImplTest					-- Okay		Thiago		Okay			Okay
+TreinoDaoImplTest					-- Okay		Thiago		Okay			Okay
+TreinoAparelhosDaoImplTest			-- false
+__________________________________________________
+				Interface			Status		Criando		Terminados		Testados
+				
+AparelhosAcademia					-- false
+CadastroCliente						-- false
+Cargos								-- false
+EspacoTempo							-- false
+Funcionarios						-- false
+Plano								-- false
+Treino								-- false
+TreinoAparelhos						-- false
+__________________________________________________
+				Imagems				Status		Criando		Terminados		Testados
+				
+AparelhosAcademia					-- false	
+CadastroCliente						-- false
+Cargos								-- false
+EspacoTempo							-- false
+Funcionarios						-- false
+Plano								-- false
+Treino								-- false
+TreinoAparelhos						-- false
+__________________________________________________
