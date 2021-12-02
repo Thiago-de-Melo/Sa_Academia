@@ -197,8 +197,7 @@ public class Aparelhos extends javax.swing.JFrame {
                 popularTabela();
             } catch (Exception ex) {
                 System.err.println("Erro ao pesquisar o nome do aparelho!");
-            }
-            //vamos lá
+            }            
         }                
     }//GEN-LAST:event_btPesquisarAparelhoActionPerformed
 
