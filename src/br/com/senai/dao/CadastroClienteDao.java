@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface CadastroClienteDao extends BaseDao{
 
-    CadastroCliente pesquisarPorId(int id) throws Exception;
+    CadastroCliente pesquisarPorId(Long cpf) throws Exception;
 
     List<CadastroCliente> pesquisarPorNome(String nome) throws Exception;
     
-    CadastroCliente logar(Integer cpf, String senha) throws Exception;
+    CadastroCliente logar(Long cpf, String senha) throws Exception;
 
 }

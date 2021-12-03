@@ -3,6 +3,8 @@ package br.com.senai.tela;
 
 import br.com.senai.dao.CadastroClienteDao;
 import br.com.senai.dao.CadastroClienteDaoImpl;
+import br.com.senai.entidade.CadastroCliente;
+import javax.swing.JOptionPane;
 
 
 
@@ -85,14 +87,22 @@ public class LoginCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         CadastroClienteDao cadastroClienteDao = new CadastroClienteDaoImpl();
-        try {
+        try {            
             CadastroCliente cadastroCliente = cadastroClienteDao
-                    .logar(varLogin.getText(), varSenha.getText());
+                    .logar(Long.parseLong(varLogin.getText()), varSenha.getText());
+            if(cadastroCliente == null) {
+                JOptionPane.showMessageDialog(null, "Login ou senha incorretor");
+            } else {
+                new TelaInicial().setVisible(true);
+                dispose();
+            }
         } catch (Exception e) {
+            System.err.println("Erro ao logar---" + e.getMessage());
         }
        
     }//GEN-LAST:event_btLoginActionPerformed

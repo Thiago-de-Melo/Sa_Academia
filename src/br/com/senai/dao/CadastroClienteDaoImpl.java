@@ -30,7 +30,7 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(instrucao, Statement.RETURN_GENERATED_KEYS);
-            preparaInstrucao.setInt(1, cadastroCliente.getCpf());
+            preparaInstrucao.setLong(1, cadastroCliente.getCpf());
             preparaInstrucao.setString(2, cadastroCliente.getNome());
             preparaInstrucao.setString(3, cadastroCliente.getRua());
             preparaInstrucao.setString(4, cadastroCliente.getBairro());
@@ -44,7 +44,7 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
             preparaInstrucao.executeUpdate();
             resultado = preparaInstrucao.getGeneratedKeys();
             resultado.next();
-            int CPF = resultado.getInt(1);
+            long CPF = resultado.getLong(1);
             cadastroCliente.setCpf(CPF);
         } catch (Exception e) {
             /** linha para executar mensagens de erro de conexção com o banco */
@@ -101,18 +101,18 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
     }
     
     @Override
-    public CadastroCliente pesquisarPorId(int id) throws Exception {
+    public CadastroCliente pesquisarPorId(Long cpf) throws Exception {
         CadastroCliente cadastroCliente = null;
         String consulta = "select * from Vw_Plano where cpf = ?;";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(consulta);
-            preparaInstrucao.setInt(1, cadastroCliente.getCpf());
+            preparaInstrucao.setLong(1, cpf);
             resultado = preparaInstrucao.executeQuery();
             if (resultado.next()) {
                 cadastroCliente = new CadastroCliente();
                 Plano plano = new Plano();
-                cadastroCliente.setCpf(resultado.getInt("cc.cpf"));
+                cadastroCliente.setCpf(resultado.getLong("cc.cpf"));
                 plano.setIdPlano(resultado.getInt("pl.id_plano"));
                 plano.setValorPlano(resultado.getInt("pl.valor_plano"));
                 cadastroCliente.setNome(resultado.getString("cc.nome"));
@@ -153,7 +153,7 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
                 treino = new Treino();
                 treinoAparelhos = new TreinoAparelhos();
                 aparelhosAcademia = new AparelhosAcademia();
-                cadastroCliente.setCpf(resultado.getInt("cc.cpf"));
+                cadastroCliente.setCpf(resultado.getLong("cc.cpf"));
                 cadastroCliente.setNome(resultado.getString("cc.nome"));
                 treino.setIdTreino(resultado.getInt("tr.id_treino"));
                 aparelhosAcademia.setNomeAparelhos(resultado.getString("aa.nome_aparelhos"));
@@ -175,18 +175,18 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
     }
 
     @Override
-    public CadastroCliente logar(Integer cpf, String senha) throws Exception {
+    public CadastroCliente logar(Long cpf, String senha) throws Exception {
                 String consulta = "SELECT * FROM Cadastro_Cliente WHERE cpf = ? and senha = ?";
         CadastroCliente cadastroCliente = null;
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(consulta);
-            preparaInstrucao.setInt(1, cpf);
+            preparaInstrucao.setLong(1, cpf);
             preparaInstrucao.setString(2, senha);
             resultado = preparaInstrucao.executeQuery();
             if (resultado.next()) {
                 cadastroCliente = new CadastroCliente();
-                cadastroCliente.setCpf(resultado.getInt("cpf"));
+                cadastroCliente.setCpf(resultado.getLong("cpf"));
                 cadastroCliente.setSenha(resultado.getString("senha"));
                 cadastroCliente.setCpf(cpf);
                 cadastroCliente.setSenha(senha);

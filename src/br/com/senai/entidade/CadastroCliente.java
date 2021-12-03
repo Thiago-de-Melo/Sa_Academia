@@ -5,7 +5,7 @@ package br.com.senai.entidade;
 
 public class CadastroCliente {
     
-    private Integer cpf;
+    private Long cpf;
     private String nome;
     private String sobrenome;
     private String rua;
@@ -56,7 +56,7 @@ public class CadastroCliente {
     public CadastroCliente(){        
     }
 
-    public CadastroCliente(Integer cpf, String nome, 
+    public CadastroCliente(Long cpf, String nome, 
                            String sobrenome, String rua, 
                            String bairro, Integer telefone, 
                            Integer whatsapp, String dataNascimento, 
@@ -88,11 +88,11 @@ public class CadastroCliente {
         this.senha = senha;
     }    
     
-    public Integer getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 

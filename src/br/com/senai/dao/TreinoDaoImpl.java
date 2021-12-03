@@ -27,7 +27,7 @@ public class TreinoDaoImpl implements TreinoDao{
             preparaInstrucao = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparaInstrucao.setString(1, treino.getTreinos());
             preparaInstrucao.setString(2, treino.getDescricao());
-            preparaInstrucao.setInt(3, treino.getCadastroCliente().getCpf());
+            preparaInstrucao.setLong(3, treino.getCadastroCliente().getCpf());
             preparaInstrucao.executeUpdate();
             resultado = preparaInstrucao.getGeneratedKeys();
             resultado.next();
