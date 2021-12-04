@@ -162,7 +162,7 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
 
     @Override
     public CadastroCliente logar(Long cpf, String senha) throws Exception {
-                String consulta = "SELECT * FROM Cadastro_Cliente WHERE cpf = ? and senha = ?";
+                String consulta = "SELECT * FROM cadastro_cliente WHERE cpf = ? and senha = ?";
         CadastroCliente cadastroCliente = null;
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();

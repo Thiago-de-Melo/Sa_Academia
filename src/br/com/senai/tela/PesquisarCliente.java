@@ -35,7 +35,7 @@ public class PesquisarCliente extends javax.swing.JFrame {
         BtExcluir = new javax.swing.JButton();
         BtAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Nome:");

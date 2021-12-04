@@ -27,24 +27,38 @@ public class TelaInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        cadastroClient = new javax.swing.JLabel();
+        pesquisaClient = new javax.swing.JLabel();
+        manutencao = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        Planos = new javax.swing.JMenu();
+        cadastroAparelhos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/adicionar-usuario _64.png"))); // NOI18N
+        cadastroClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/adicionar-usuario _64.png"))); // NOI18N
+        cadastroClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastroClientMouseClicked(evt);
+            }
+        });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/pesquisar-usuario.png"))); // NOI18N
+        pesquisaClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/pesquisar-usuario.png"))); // NOI18N
+        pesquisaClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pesquisaClientMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/engrenagem.png"))); // NOI18N
+        manutencao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/engrenagem.png"))); // NOI18N
+        manutencao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manutencaoMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Cadastro Cliente");
 
@@ -60,20 +74,20 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cadastroClient, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pesquisaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(39, 39, 39))
         );
@@ -87,30 +101,36 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
+                        .addComponent(pesquisaClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cadastroClient, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Cadastro");
-        jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
+        Planos.setText("Planos");
+        Planos.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
             public void menuDeselected(javax.swing.event.MenuEvent evt) {
             }
             public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu1MenuSelected(evt);
+                PlanosMenuSelected(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(Planos);
 
-        jMenu2.setText("Pesquisa");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Manutenções");
-        jMenuBar1.add(jMenu3);
+        cadastroAparelhos.setText("Cadastro Aparelhos");
+        cadastroAparelhos.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                cadastroAparelhosMenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(cadastroAparelhos);
 
         setJMenuBar(jMenuBar1);
 
@@ -129,9 +149,25 @@ public class TelaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1MenuSelected
+    private void cadastroClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastroClientMouseClicked
+        new CadastroClienteTela().setVisible(true);
+    }//GEN-LAST:event_cadastroClientMouseClicked
+
+    private void pesquisaClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesquisaClientMouseClicked
+        new PesquisarCliente().setVisible(true);
+    }//GEN-LAST:event_pesquisaClientMouseClicked
+
+    private void manutencaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manutencaoMouseClicked
+        new Aparelhos().setVisible(true);
+    }//GEN-LAST:event_manutencaoMouseClicked
+
+    private void cadastroAparelhosMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_cadastroAparelhosMenuSelected
+        new AparelhosCadastro().setVisible(true);
+    }//GEN-LAST:event_cadastroAparelhosMenuSelected
+
+    private void PlanosMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_PlanosMenuSelected
+        new Planos().setVisible(true);
+    }//GEN-LAST:event_PlanosMenuSelected
 
     /**
      * @param args the command line arguments
@@ -169,16 +205,15 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu Planos;
+    private javax.swing.JMenu cadastroAparelhos;
+    private javax.swing.JLabel cadastroClient;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel manutencao;
+    private javax.swing.JLabel pesquisaClient;
     // End of variables declaration//GEN-END:variables
 }

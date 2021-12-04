@@ -23,9 +23,9 @@ public class Planos extends javax.swing.JFrame {
 
     
         private DefaultTableModel tabelaModelo;
-        private PlanoDao planoDao;
-        private List<Plano> pesquisaPlano;
-        
+        private PlanoDao planoDao = new PlanoDaoImpl();
+        private List<Plano> planos;
+        private Plano plano;
         
         
         
@@ -61,7 +61,7 @@ public class Planos extends javax.swing.JFrame {
 
         varNomeAparelho.setPreferredSize(new java.awt.Dimension(60, 23));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Planos");
 
         jPanel1.setBackground(new java.awt.Color(64, 224, 208));
@@ -83,6 +83,11 @@ public class Planos extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tablePlano.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePlanoMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablePlano);
@@ -229,18 +234,24 @@ public class Planos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTCadastraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTCadastraActionPerformed
-        String nome = varNomePlano.getName().trim();
-        String valor = varValorPlano.getName().trim();
-        String descricao = varDescricaoPlano.getName().trim();
-
-if ((nome.length()< 3)
-                &&(valor.length()< 1)
-                && (descricao.length()< 3)) {
-            JOptionPane.showMessageDialog(null, "Dados Validados aqui deve ser efetuada a operação!!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Confira os campos Obrigatórios!!");
-}
-
+        plano = new Plano();
+        try {
+            plano.setPlanos(varNomePlano.getText().trim());
+            plano.setValorPlano(Integer.parseInt(varValorPlano.getText().trim()));
+            plano.setDescricao(varDescricaoPlano.getText().trim());
+                
+        try {
+            planoDao.salvar(plano);
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!!!");
+            dispose(); 
+        } catch (Exception ex) {
+            Logger.getLogger(Plano.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Plano!");
+        }
+        
     }//GEN-LAST:event_BTCadastraActionPerformed
 
     private void BTPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTPesquisarActionPerformed
@@ -249,7 +260,8 @@ if ((nome.length()< 3)
             JOptionPane.showMessageDialog(null, "Digite pelo menos 3 letras!!");
         }else{
             try {
-                pesquisaPlano = planoDao.pesquisarPorNome(nome);
+                planos = planoDao.pesquisarPorNome(nome);
+                
                 popularTabela();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisarCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,18 +270,20 @@ if ((nome.length()< 3)
     }//GEN-LAST:event_BTPesquisarActionPerformed
 
     private void BTAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAlterarActionPerformed
- String nomePlano = varNomePlano.getText().trim();
-        if (nomePlano.length() < 3) {
-            JOptionPane.showMessageDialog(null, "Digite ao menos 3 letras do nome para retornar um Plano!");
-        } else {
-            try {
-                pesquisaPlano = planoDao.pesquisarPorNome(nomePlano);
-                popularTabela();
-            } catch (Exception ex) {
-                System.err.println("Erro ao pesquisar o nome do Plano!");
-            }  
+            int linhaSelecionada = tablePlano.getSelectedRow();
+        try {
+            Plano plano = planos.get(linhaSelecionada);
+            plano.setPlanos(varNomePlano.getText().trim());
+            plano.setDescricao(varDescricaoPlano.getText().trim());
+            plano.setValorPlano(Integer.parseInt(varValorPlano.getText().trim()));
+            planoDao.alterar(plano);
+            JOptionPane.showMessageDialog(null, "SALVO COM SUCESSO!!!");  
             dispose();
-        }   
+            
+        } catch (Exception e) {
+            System.out.println("erro " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao alterar, selecione uma linha!");
+        }
 
          
     }//GEN-LAST:event_BTAlterarActionPerformed
@@ -277,7 +291,7 @@ if ((nome.length()< 3)
     private void BTExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTExcluirActionPerformed
         int linhaSelecionada = tablePlano.getSelectedRow();
         try {
-            Plano plano = pesquisaPlano.get(linhaSelecionada);
+            Plano plano = planos.get(linhaSelecionada);
             planoDao.excluir(plano.getIdPlano());
             varNomePlano.setText(null);
             varValorPlano.setText(null);
@@ -289,11 +303,19 @@ if ((nome.length()< 3)
         }
     }//GEN-LAST:event_BTExcluirActionPerformed
 
-    
+    private void tablePlanoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePlanoMouseClicked
+        int linhaSelecionada = tablePlano.getSelectedRow();
+        Plano plano = planos.get(linhaSelecionada);
+        varNomePlano.setText(plano.getPlanos());
+        varValorPlano.setText(String.valueOf(plano.getValorPlano()));
+        varDescricaoPlano.setText(plano.getDescricao());
+        
+    }//GEN-LAST:event_tablePlanoMouseClicked
+
         private void popularTabela(){
         tabelaModelo = (DefaultTableModel) tablePlano.getModel();
         tabelaModelo.setNumRows(0);
-        for (Plano plano : pesquisaPlano) {
+        for (Plano plano : planos) {
             tabelaModelo.addRow(new Object[]{plano.getPlanos(), plano.getValorPlano(),
                                  plano.getDescricao()});
         } 
