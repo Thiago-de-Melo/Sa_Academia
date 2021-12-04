@@ -3,9 +3,12 @@ package br.com.senai.tela;
 
 import br.com.senai.dao.CadastroClienteDao;
 import br.com.senai.dao.CadastroClienteDaoImpl;
+import br.com.senai.dao.PlanoDao;
+import br.com.senai.dao.PlanoDaoImpl;
 import br.com.senai.entidade.CadastroCliente;
 import br.com.senai.entidade.Plano;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 public class CadastroClienteTela extends javax.swing.JFrame {
@@ -18,12 +21,31 @@ public class CadastroClienteTela extends javax.swing.JFrame {
     public CadastroClienteTela(CadastroCliente cadastroCliente) {
         initComponents();
         this.CadastroCliente = cadastroCliente;
+        varNomeCadastro.setText(cadastroCliente.getNome());
+        varCPFCadastro.setText(String.valueOf(cadastroCliente.getCpf()));
+        varSobrenomeCadastro.setText(cadastroCliente.getSobrenome());
+        varRuaCadastro.setText(cadastroCliente.getRua());
+        varBairroCadastro.setText(cadastroCliente.getBairro());
+        varTelefoneCadastro.setText(Integer.toString(cadastroCliente.getTelefone()));
+        varWhatsappCadastro.setText(Integer.toString(cadastroCliente.getWhatsapp()));
+        
+        pesquisarPlanoComboBox();
         
     }
 
     private CadastroCliente CadastroCliente;
     private CadastroClienteDao CadastroClienteDao = new CadastroClienteDaoImpl();
     private List<Plano> planoss;
+    
+    private void pesquisarPlanoComboBox() {
+        PlanoDao planoDao = new PlanoDaoImpl();
+        try {
+            planoss = planoDao.pesquisarTodo();
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar combo perfil... " + e.getMessage());
+        }
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,7 +60,6 @@ public class CadastroClienteTela extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         varDataNascimentoCadastro = new javax.swing.JTextField();
         varCPFCadastro = new javax.swing.JTextField();
@@ -49,8 +70,7 @@ public class CadastroClienteTela extends javax.swing.JFrame {
         varTelefoneCadastro = new javax.swing.JTextField();
         varWhatsappCadastro = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        btSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,9 +90,12 @@ public class CadastroClienteTela extends javax.swing.JFrame {
 
         jLabel8.setText("Data Nascimento :");
 
-        jLabel9.setText("Plano :");
-
-        jButton2.setText("Salvar");
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -80,18 +103,16 @@ public class CadastroClienteTela extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jButton2)
+                .addComponent(btSalvar)
                 .addContainerGap(41, Short.MAX_VALUE))
         );
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,7 +122,6 @@ public class CadastroClienteTela extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
@@ -111,15 +131,14 @@ public class CadastroClienteTela extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(varDataNascimentoCadastro)
+                    .addComponent(varDataNascimentoCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(varCPFCadastro)
                     .addComponent(varNomeCadastro)
                     .addComponent(varSobrenomeCadastro)
                     .addComponent(varRuaCadastro)
                     .addComponent(varBairroCadastro)
                     .addComponent(varTelefoneCadastro)
-                    .addComponent(varWhatsappCadastro)
-                    .addComponent(jComboBox1, 0, 150, Short.MAX_VALUE))
+                    .addComponent(varWhatsappCadastro))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,11 +187,7 @@ public class CadastroClienteTela extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(varDataNascimentoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,6 +205,36 @@ public class CadastroClienteTela extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        if (CadastroCliente == null) {
+            CadastroCliente = new CadastroCliente();
+            CadastroCliente.setSenha("12345");            
+        }       
+        CadastroCliente.setNome(varNomeCadastro.getText().trim());
+        try {
+            if (CadastroCliente.getCpf()== null) {
+                CadastroClienteDao.salvar(CadastroCliente);                
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
+            } else {
+                CadastroClienteDao.alterar(CadastroCliente);
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!!");
+            }
+            apagarCampos();
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar usuário " + e.getMessage());
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void apagarCampos() {
+        varNomeCadastro.setText(null);
+        varCPFCadastro.setText(null);
+        varSobrenomeCadastro.setText(null);
+        varRuaCadastro.setText(null);
+        varBairroCadastro.setText(null);
+        varTelefoneCadastro.setText(null);
+        varWhatsappCadastro.setText(null);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -229,8 +274,7 @@ public class CadastroClienteTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -240,7 +284,6 @@ public class CadastroClienteTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField varBairroCadastro;

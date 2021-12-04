@@ -12,5 +12,7 @@ public interface CadastroClienteDao extends BaseDao{
     List<CadastroCliente> pesquisarPorNome(String nome) throws Exception;
     
     CadastroCliente logar(Long cpf, String senha) throws Exception;
+    
+    void excluir(long cpf) throws Exception;
 
 }

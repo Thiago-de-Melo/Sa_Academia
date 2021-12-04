@@ -61,7 +61,7 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
         CadastroCliente cadastroCliente = (CadastroCliente) object;
         String sql = "UPDATE Cadastro_Cliente SET "
                 + "nome = ?, rua = ?, bairro = ?, telefone = ?, data_nascimento = ?, "
-                + "senha = ?, sobrenome = ?, id_Plano = ?, whatsapp = ?, id_Treino = ? WHERE CPF = ?";
+                + "sobrenome = ?, id_Plano = ?, whatsapp = ?, id_Treino = ? WHERE CPF = ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(sql);
@@ -70,11 +70,10 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
             preparaInstrucao.setString(3, cadastroCliente.getBairro());
             preparaInstrucao.setInt(4, cadastroCliente.getTelefone());
             preparaInstrucao.setString(5, cadastroCliente.getDataNascimento());
-            preparaInstrucao.setString(6, cadastroCliente.getSenha());
-            preparaInstrucao.setString(7, cadastroCliente.getSobrenome());
-            preparaInstrucao.setInt(8, cadastroCliente.getPlano().getIdPlano());
-            preparaInstrucao.setInt(9, cadastroCliente.getWhatsapp());
-            preparaInstrucao.setInt(10, cadastroCliente.getTreino().getIdTreino());
+            preparaInstrucao.setString(6, cadastroCliente.getSobrenome());
+            preparaInstrucao.setInt(7, cadastroCliente.getPlano().getIdPlano());
+            preparaInstrucao.setInt(8, cadastroCliente.getWhatsapp());
+            preparaInstrucao.setInt(9, cadastroCliente.getTreino().getIdTreino());
             preparaInstrucao.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao alterar cadastro cliente! " + e.getMessage());
@@ -85,12 +84,12 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
     }
 
     @Override
-    public void excluir(int id) throws Exception {
-            String sql = "DELETE FROM Cadastro_Cliente WHERE id = ?";
+    public void excluir(long cpf) throws Exception {
+            String sql = "DELETE FROM Cadastro_Cliente WHERE cpf = ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(sql);
-            preparaInstrucao.setInt(1, id);
+            preparaInstrucao.setLong(1, cpf);
             preparaInstrucao.executeUpdate();
         } catch (Exception e) {
             System.out.println("erro ao excluir Cdastro do cliente " + e.getMessage());
@@ -133,35 +132,22 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
     @Override
     public List<CadastroCliente> pesquisarPorNome(String nome) throws Exception {
         List<CadastroCliente> cadastroClientes = new ArrayList<>();
-        String consulta = "SELECT cc.cpf, cc.nome, tr.id_treino, aa.nome_aparelhos, tr.treinos, aa.id_aparelhos"
-                + "from Treino_Aparelhos ta"
-                + "join Aparelhos_Academia aa on aa.id_aparelhos = ta.id_aparelho"
-                + "join Treino tr on tr.id_treino = ta.id_treino"
-                + "inner join Cadastro_Cliente cc on cc.id_treino = tr.id_treino"
-                + "WHERE cc.nome LIKE ?";
+        String consulta = "SELECT * from Cadastro_Cliente where nome like ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(consulta);
             preparaInstrucao.setString(1, "%" + nome + "%");
             resultado = preparaInstrucao.executeQuery();
             CadastroCliente cadastroCliente;
-            Treino treino;
-            TreinoAparelhos treinoAparelhos;
-            AparelhosAcademia aparelhosAcademia;
             while (resultado.next()) {
                 cadastroCliente = new CadastroCliente();
-                treino = new Treino();
-                treinoAparelhos = new TreinoAparelhos();
-                aparelhosAcademia = new AparelhosAcademia();
-                cadastroCliente.setCpf(resultado.getLong("cc.cpf"));
-                cadastroCliente.setNome(resultado.getString("cc.nome"));
-                treino.setIdTreino(resultado.getInt("tr.id_treino"));
-                aparelhosAcademia.setNomeAparelhos(resultado.getString("aa.nome_aparelhos"));
-                treino.setTreinos(resultado.getString("tr.treinos"));
-                aparelhosAcademia.setIdAparelhos(resultado.getInt("aa.id_aparelhos"));
-                cadastroCliente.setTreino(treino);
-                cadastroCliente.setAparelhosAcademia(aparelhosAcademia);
-                cadastroCliente.setTreinoAparelhos(treinoAparelhos);
+                cadastroCliente.setCpf(resultado.getLong("cpf"));
+                cadastroCliente.setNome(resultado.getString("nome"));
+                cadastroCliente.setSobrenome(resultado.getString("sobrenome"));
+                cadastroCliente.setBairro(resultado.getString("bairro"));
+                cadastroCliente.setRua(resultado.getString("rua"));
+                cadastroCliente.setTelefone(resultado.getInt("telefone"));
+                cadastroCliente.setWhatsapp(resultado.getInt("whatsapp"));
                 cadastroClientes.add(cadastroCliente);
             }
         } catch (Exception e) {
@@ -199,6 +185,11 @@ public class CadastroClienteDaoImpl implements CadastroClienteDao{
             resultado.close();
         }
         return cadastroCliente;
+    }
+
+    @Override
+    public void excluir(int id) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

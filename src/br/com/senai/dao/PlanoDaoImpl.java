@@ -129,6 +129,33 @@ public class PlanoDaoImpl implements PlanoDao{
         }
         return planosLista;
     }
+
+    @Override
+    public List<Plano> pesquisarTodo() throws Exception {
+                List<Plano> planoss = new ArrayList<>();
+        String consulta = "SELECT * FROM Plano";
+        try {
+            conexao = Sa_Academia_Conexao.abrirConexao();
+            preparaInstrucao = conexao.prepareStatement(consulta);
+            resultado = preparaInstrucao.executeQuery();
+            Plano plano;
+            while (resultado.next()) {
+                plano = new Plano();
+                plano.setIdPlano(resultado.getInt("id"));
+                plano.setPlanos(resultado.getString("nome"));                
+                planoss.add(plano);
+            }
+        } catch (Exception e) {
+            System.out.println("erro pesquisar todos os perfils " + e.getMessage());
+        } finally {
+            conexao.close();
+            preparaInstrucao.close();
+            resultado.close();
+        }
+        return planoss;
+    }
+    
+    
     
     
     

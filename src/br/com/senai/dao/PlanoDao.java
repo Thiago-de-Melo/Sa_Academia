@@ -11,4 +11,6 @@ public interface PlanoDao extends BaseDao {
     
     List<Plano> pesquisarPorNome(String planos)throws Exception;
     
+    List<Plano> pesquisarTodo() throws Exception;
+    
 }
