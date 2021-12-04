@@ -243,7 +243,7 @@ public class Planos extends javax.swing.JFrame {
         try {
             planoDao.salvar(plano);
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!!!");
-            dispose(); 
+ 
         } catch (Exception ex) {
             Logger.getLogger(Plano.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -270,7 +270,7 @@ public class Planos extends javax.swing.JFrame {
     }//GEN-LAST:event_BTPesquisarActionPerformed
 
     private void BTAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAlterarActionPerformed
-            int linhaSelecionada = tablePlano.getSelectedRow();
+          int linhaSelecionada = tablePlano.getSelectedRow();
         try {
             Plano plano = planos.get(linhaSelecionada);
             plano.setPlanos(varNomePlano.getText().trim());
@@ -278,7 +278,7 @@ public class Planos extends javax.swing.JFrame {
             plano.setValorPlano(Integer.parseInt(varValorPlano.getText().trim()));
             planoDao.alterar(plano);
             JOptionPane.showMessageDialog(null, "SALVO COM SUCESSO!!!");  
-            dispose();
+
             
         } catch (Exception e) {
             System.out.println("erro " + e);
@@ -296,8 +296,8 @@ public class Planos extends javax.swing.JFrame {
             varNomePlano.setText(null);
             varValorPlano.setText(null);
             varDescricaoPlano.setText(null);
-            JOptionPane.showMessageDialog(null, "Aparelhos excluido com sucesso!");
-            dispose();
+            JOptionPane.showMessageDialog(null, "Plano excluido com sucesso!");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir, selecione uma linha");
         }

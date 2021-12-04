@@ -19,7 +19,7 @@ public class PlanoDaoImpl implements PlanoDao{
     @Override
     public void salvar(Object object) throws Exception {
         Plano plano = (Plano) object;
-        String sql = "INSERT INTO Plano(Id_Plano, Planos, Descricao, Valor_Plano)"
+        String sql = "INSERT INTO plano(Id_Plano, Planos, Descricao, Valor_Plano)"
                 + " VALUES(nextval('Sequence_Plano'), ?, ?, ?)";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
@@ -42,7 +42,7 @@ public class PlanoDaoImpl implements PlanoDao{
     @Override
     public void alterar(Object object) throws Exception {
         Plano plano = (Plano) object;
-        String sql = "UPDATE Plano SET planos = ?, descricao = ?, valor_plano = ?"
+        String sql = "UPDATE plano SET planos = ?, descricao = ?, valor_plano = ?"
                 + " WHERE Id_Plano = ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
@@ -62,7 +62,7 @@ public class PlanoDaoImpl implements PlanoDao{
 
     @Override
     public void excluir(int id) throws Exception {
-        String sql = "DELETE FROM Plano WHERE Id_Plano = ?";
+        String sql = "DELETE FROM plano WHERE Id_Plano = ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(sql);
@@ -80,7 +80,7 @@ public class PlanoDaoImpl implements PlanoDao{
     public Plano pesquisarPorId(int id_plano) throws Exception {
         Plano plano = null;
 
-        String consulta = "SELECT * FROM Plano WHERE id_plano = ?";
+        String consulta = "SELECT * FROM plano WHERE id_plano = ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(consulta);
@@ -107,7 +107,7 @@ public class PlanoDaoImpl implements PlanoDao{
     public List<Plano> pesquisarPorNome(String planos) throws Exception {
         Plano plano;
         List<Plano> planosLista = new ArrayList<>();
-        String consulta = "SELECT *FROM Plano WHERE planos LIKE ?";
+        String consulta = "SELECT *FROM plano WHERE planos LIKE ?";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(consulta);
@@ -119,6 +119,7 @@ public class PlanoDaoImpl implements PlanoDao{
                 plano.setPlanos(resultado.getString("planos"));
                 plano.setDescricao(resultado.getString("descricao"));
                 plano.setValorPlano(resultado.getInt("valor_plano"));
+                planosLista.add(plano);
             }
         } catch (Exception e) {
             System.out.println("erro pesquisar por nome do plano!" + e.getMessage());
@@ -133,7 +134,7 @@ public class PlanoDaoImpl implements PlanoDao{
     @Override
     public List<Plano> pesquisarTodo() throws Exception {
                 List<Plano> planoss = new ArrayList<>();
-        String consulta = "SELECT * FROM Plano";
+        String consulta = "SELECT * FROM plano";
         try {
             conexao = Sa_Academia_Conexao.abrirConexao();
             preparaInstrucao = conexao.prepareStatement(consulta);
